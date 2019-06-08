@@ -38,7 +38,7 @@ def solve_knapsack(method, objects_id, weights, every_trailer_axis, objects_pric
         solver.Init(values, flat_list, capacities)
         computed_value = solver.Solve()
         packed_items = [x for x in range(0, len(flat_list[0]))
-                        if solver.BestSolutionContains(x)]  # тут ошибка
+                        if solver.BestSolutionContains(x)]  
         packed_items_ids = []
         for i in packed_items:  # Получение id упакованных вещей
             packed_items_ids.append(objects_id[i])

@@ -1,97 +1,78 @@
 {% extends "wrapper.html" %}
 
 {% block content %}
-<style>
-    td:nth-child(3) {
-      background: rgb(255,204,255)
-    }
-    td:nth-child(2) {
-      background: white
-    }
-    td:nth-child(4) {
-      background: lightpink
-    }
-    td:nth-child(1) {  
-      background: lightcyan
-    }
-    td:nth-child(5) {  
-      background: lightcyan
-    }
-    td:nth-child(6) {  
-      background: lightgreen
-    }
-    td:nth-child(7) {  
-      background: lightgoldenrodyellow
-    }
-    .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.center2 {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
 {% csrf_token %}
 <!-- Страница для составления карты расположения -->
 {% if user.is_authenticated %}
 <!--<p align = "center"> 
     Погруженные объекты  </p> -->
-<img src="/static/Images/palett-fur.png" class="center">
-<table border="1" align="center">
+<table border="1">
+  <tr><td rowspan="4" style = "background: none; border-style:hidden"><img src="/static/Images/palett-fur.png"></td>
   <!-- <td>Места</td> -->
-  <td>
-    Нижний ряд  
+  <td style = "background: lightcyan">
+    Правый верхний ряд  
   </td>
-  <td>
-    Верхний ряд
-  </td> 
-  {% for obj_id in objects_ids %}
-  {% if not forloop.counter|divisibleby:"2" %}
-  <tr> <!--Следующая строка (переход из шапки на строки результата)-->
-    <!-- <td>
-        {{forloop.counter}} 
-    </td> -->
-  <td>
-    {{obj_id}}
-  </td>
-  {% elif forloop.counter|divisibleby:"2" %}
-  <td>
-    {{obj_id}}
-  </td>
-  {% endif %}
+  {% for obj_id in up_right_objects_ids %}
+  <td style = "background: lightcyan"> 
+      {{obj_id}}
+    </td>
   {% endfor %} 
+  <tr>
+  <td style = "background: white">
+    Правый нижний ряд
+  </td> 
+  {% for obj_id in down_right_objects_ids %}
+  <td style = "background: white">
+      {{obj_id}}
+  </td>
+  {% endfor %} 
+  <tr>
+      <td style = "background: lightgoldenrodyellow">
+          Левый верхний ряд  
+        </td>
+        {% for obj_id in up_left_objects_ids %}
+        <td style = "background: lightgoldenrodyellow"> 
+            {{obj_id}}
+          </td>
+        {% endfor %} 
+        <tr>
+        <td style = "background: lightsteelblue">
+          Левый нижний ряд
+        </td> 
+        {% for obj_id in down_left_objects_ids %}
+        <td style = "background: lightsteelblue">
+            {{obj_id}}
+        </td>
+        {% endfor %}     
+  </tr>
 </table> 
-<img src="/static/Images/end.png" class="center2"> 
 <hr>
 <p align="center">
   Информация о погружаемых объектах:
   <table border="1" align="center">
-      <td>
+      <td style = "background: white">
         Идентификатор  
       </td>
-      <td>
+      <td style = "background: white">
         Вес объекта
       </td>     
-      <td>
+      <td style = "background: white">
           Наименование объекта
       </td> 
-      <td>
+      <td style = "background: white">
           Производитель
       </td> 
-      <td>
+      <td style = "background: white">
           Партия
       </td> 
-      <td>
+      <td style = "background: white">
           Цена
       </td> 
-      <td>
+      <td style = "background: white">
           Номер склада
       </td> 
-      {% for obj in obj_info %}
-        <tr>
+      {% for obj in obj_info_up_right %}
+        <tr style = "background: lightcyan">
           <td>
               {{obj.id_Objectss}}
           </td>
@@ -115,29 +96,104 @@
           </td>       
         </tr>
       {% endfor %} 
+      {% for obj in obj_info_down_right %}
+        <tr style = "background: white">
+          <td>
+              {{obj.id_Objectss}}
+          </td>
+          <td>
+              {{obj.weight}}
+          </td>
+          <td>
+              {{obj.name}}
+          </td>
+          <td>
+              {{obj.manufacturer}}
+          </td>
+          <td>
+              {{obj.consignment}}
+          </td>
+          <td>
+              {{obj.base_price}}
+          </td>    
+          <td>
+              {{obj.stock_num}}
+          </td>       
+        </tr>
+      {% endfor %} 
+      {% for obj in obj_info_up_left %}
+      <tr style = "background: lightgoldenrodyellow">
+        <td>
+            {{obj.id_Objectss}}
+        </td>
+        <td>
+            {{obj.weight}}
+        </td>
+        <td>
+            {{obj.name}}
+        </td>
+        <td>
+            {{obj.manufacturer}}
+        </td>
+        <td>
+            {{obj.consignment}}
+        </td>
+        <td>
+            {{obj.base_price}}
+        </td>    
+        <td>
+            {{obj.stock_num}}
+        </td>       
+      </tr>
+    {% endfor %} 
+    {% for obj in obj_info_down_left %}
+    <tr style = "background: lightsteelblue">
+      <td>
+          {{obj.id_Objectss}}
+      </td>
+      <td>
+          {{obj.weight}}
+      </td>
+      <td>
+          {{obj.name}}
+      </td>
+      <td>
+          {{obj.manufacturer}}
+      </td>
+      <td>
+          {{obj.consignment}}
+      </td>
+      <td>
+          {{obj.base_price}}
+      </td>    
+      <td>
+          {{obj.stock_num}}
+      </td>       
+    </tr>
+  {% endfor %} 
   </table> 
 <p align="center">
       Информация о непогружаеных объектах:
       <table border="1" align="center">
-          <td>
+          <td style = "background: white">
             Идентификатор  
           </td>
-          <td>
+          <td style = "background: white">
             Вес объекта
           </td>     
-          <td>
+          <td style = "background: white">
               Наименование объекта
           </td> 
-          <td>
+          <td style = "background: white">
               Производитель
           </td> 
-          <td>
+          <td style = "background: white">
               Партия
           </td> 
-          <td>
+          <td style = "background: white">
               Цена
           </td> 
-          <td>
+          <td style = "background: white">
               Номер склада
           </td> 
           {% for obj in not_packed %}

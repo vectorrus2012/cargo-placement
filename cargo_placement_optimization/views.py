@@ -94,7 +94,7 @@ def map_params(request):
 # Генерация карты расположения грузов
 def map_create(request):
     id_orders = request.POST.get("id_order")
-    if Orders.objects.filter(id_Orders=id_orders).count() != 0:  # Получить количество объектов
+    if Orders.objects.filter(id_Orders=id_orders).count() != 0:  # Если есть хотя бы 1 объект
         order = Orders.objects.get(id_Orders=id_orders)  # Идентификатор заказа
         car = Cars.objects.get(id_Car=order.id_car)  # Получить данные машины
         if car.trailer_ax_count == 2 and car.car_ax_count == 2:  # 2 оси автомобиля и 2 оси полуприцепа
@@ -126,22 +126,39 @@ def map_create(request):
                     objects_id.append(obj.id_object.id_Objectss)
                     objects_order.append(obj.order_placement)
                 counter += 1  # +1 к счётчику цикла
-            # obj_count = ObjectsForOrders.objects.filter(id_order=request.POST.get("id_order")).count()
             obj_count = len(objects_id)
             common_weight = 0
             for i in range(obj_count):
                 objectss = Objectss.objects.get(id_Objectss=objects_id[i])
                 objects_weights.append(objectss.weight)
-                common_weight += (float(objectss.weight))/1000  # заполнение общий вес вещей
-                objects_price.append(objectss.base_price)
-            res = solve_cargo(car.trailer_ax_count, car.car_ax_count, car.maxWeight, car.trailer_weight,
-                              common_weight)  # Предварительная проверка перегруза
-            res_percents = []
-            for i in range(3):  # Получение процентов перегруза по осям (без общей нагрузки)
-                res_percents.append(((res[i]-max_load)/max_load)*100)
+                common_weight += (float(objectss.weight))/1000  # Заполнение общий вес вещей
+                objects_price.append(objectss.base_price)  # Заполнение цен на объекты
             weight_load_max = (max_weight - (car.maxWeight + car.trailer_weight))*1000  # Максимально допустимый вес (тонны)
-            # Вызов функции оптимизации из внешнего модуля
-            obj_ids = solve_knapsack(optimise_method, objects_id, objects_weights, weight_load_max, objects_price)
+            reloaded = True  # Изначально True для активации цикла. Используется для сообщения о перегрузе
+            obj_ids = []
+            while reloaded == True:
+                # Вызов функции оптимизации из внешнего модуля
+                obj_ids = solve_knapsack(optimise_method, objects_id, objects_weights, weight_load_max, objects_price)
+                k = 0
+                packed_objs_weight = 0  # Общий вес груза
+                for i in objects_id:
+                    for j in obj_ids:
+                        if i == j:
+                            packed_objs_weight += objects_weights[k]  # Если объект погружен +1 вес этого объекта
+                    k += 1
+                packed_objs_weight = packed_objs_weight/1000  # Перевод общего веса в тонны
+                # Расчёт нагрузок на оси
+                res = solve_cargo(car.trailer_ax_count, car.car_ax_count, car.maxWeight, car.trailer_weight,
+                                packed_objs_weight)  # Проверка перегруза
+                reloaded = False  # Изначально False для выхода из цикла, если нет перегруза
+                for i in range(3):  # Получение процентов перегруза по осям (без общей нагрузки)
+                    if res[i] >= max_load + ((max_load*2)/100):  # Если перегруз больше двух процентов
+                        reloaded = True
+                        del objects_id[-1] # Удалить последний непомещённый объект
+                        del objects_order[-1] # Удалить порядок погрузки этого объекта
+                        common_weight -= (float(objects_weights[-1]))/1000  # -1 вес этого объекта из общего
+                        del objects_weights[-1]  # -1 вес объекта
+                        del objects_price[-1]  # -1 Цена объекта
             k = 0
             new__ord_list = []  # новый список с порядком погрузки, соответствующий вместимым вещам
             for i in objects_id:
@@ -151,12 +168,43 @@ def map_create(request):
                 k += 1
             result = [obj_ids for _, obj_ids in sorted(zip(new__ord_list, obj_ids))]  # Сортировка по порядку погрузки
             result = result[:places_count]  # Срез до количества мест
-            result.reverse()
-            objects_info = Objectss.objects.filter(id_Objectss__in=result)  # Получить информацию о помещённых предметах
+            up = []  # Верхние объекты
+            down = []  # Нижние объекты
+            counter2 = 2  # счётчик цикла
+            for obj in result:
+                if counter2 % 2 == 0:
+                    up.append(obj)
+                else:
+                    down.append(obj)
+                counter2 += 1
+            counter2 = 0  # Обнуление счётчика
+            right_up = []  # Правый верх
+            left_up = []  # Левый верх
+            for obj in up:
+                if counter2 % 2 == 0:
+                    right_up.append(obj)
+                else:
+                    left_up.append(obj)
+                counter2 += 1    
+            counter2 = 0
+            right_down = []  # Правый низ
+            left_down = []  # Левый низ
+            for obj in down:
+                if counter2 % 2 == 0:
+                    right_down.append(obj)
+                else:
+                    left_down.append(obj)
+                counter2 += 1           
+            objects_info_up_right = Objectss.objects.filter(id_Objectss__in=right_up)  # Получить информацию о помещённых предметах (верхний ряд, справа)
+            objects_info_down_right = Objectss.objects.filter(id_Objectss__in=right_down)  # Получить информацию о помещённых предметах (нижний ряд, справа)
+            objects_info_up_left = Objectss.objects.filter(id_Objectss__in=left_up)  # Получить информацию о помещённых предметах (верхний ряд, слева)
+            objects_info_down_left = Objectss.objects.filter(id_Objectss__in=left_down)  # Получить информацию о помещённых предметах (нижний ряд, слева)
             new_not_packed_items = list(set(objects_id)-set(result))  # Список не погруженных вещей
-            not_packed_info = Objectss.objects.filter(id_Objectss__in=new_not_packed_items)
-        return render(request, 'create_map/Create_map_result.html', {"objects_ids": result, "obj_info": objects_info,
-                                                                     "not_packed": not_packed_info})
+            not_packed_info = Objectss.objects.filter(id_Objectss__in=new_not_packed_items)  # Информаци о не погруженных вещях
+        return render(request, 'create_map/Create_map_result.html', {"up_right_objects_ids": right_up,"up_left_objects_ids": left_up,
+        "down_right_objects_ids":right_down, "down_left_objects_ids":left_down, 
+        "obj_info_up_right": objects_info_up_right, "obj_info_down_right": objects_info_down_right, 
+        "obj_info_up_left": objects_info_up_left, "obj_info_down_left": objects_info_down_left,  "not_packed": not_packed_info})
     else:
         return render(request, 'error/data.html')  # Если заказ не найден, то показ ошибки
 
