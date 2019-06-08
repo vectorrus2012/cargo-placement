@@ -1,3 +1,3 @@
 # cargo-placement
-Web service on django for generate optimise map cargo placement in eurotrucks
+Web service on django for generate optimise map cargo placement in eurotrucks.
 requires ortools
