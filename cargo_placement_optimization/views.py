@@ -1,15 +1,14 @@
 from django.shortcuts import render
-from .models import Cars, Orders, Objectss, Places, ObjectsForOrders, Reviews
+from .models import Cars, Orders, Objectss, Places, ObjectsForOrders
 from django.http import HttpResponseRedirect, HttpResponse
 import datetime
 from django.utils.timezone import utc
 from django.db.models import Avg, Func
 from django.views.generic.edit import FormView
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.views.generic.base import View
 from .alghorithm import *
-
 
 
 class LogoutView(View): # Разлогинивание
