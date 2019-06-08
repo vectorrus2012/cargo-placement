@@ -1,0 +1,32 @@
+{% extends "wrapper.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<table border="1">
+        <tr>
+         <th>Идентификатор</th>
+         <th>Брэнд машины</th>
+         <th>Модель</th>
+         <th>Вес машины(тонны)</th>
+         <th>Вес прицепа(тонны)</th>
+         <th>Количество осей прицепа</th>
+         <th>Количество осей машины</th>
+         <th>Удалить</th>
+        </tr>
+    {% for car_info in Cars %}
+        <tr>
+        <td><a href= {% url 'select_new_car_brand' id_car=car_info.id_Car %}>{{car_info.id_Car}} <i class="fas fa-sliders-h"></i></a></td>    
+        <td>{{car_info.Brand}}</td>
+        <td>{{car_info.Model}}</td>
+        <td>{{car_info.maxWeight}}</td>
+        <td>{{car_info.trailer_weight}}</td>
+        <td>{{car_info.trailer_ax_count}}</td>
+        <td>{{car_info.car_ax_count}}</td>   
+        <td><a href= {% url 'del_car' id_car=car_info.id_Car %}><i class="fas fa-trash"></i></a></tr>
+    {% endfor %}
+    </table>
+    <hr>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

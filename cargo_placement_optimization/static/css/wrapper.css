@@ -1,0 +1,63 @@
+/*Костыли для маленьких экранов */
+@media all and (max-width:630px) {
+    /*Не отображать виджет часов и разделитель шапки, если ширина экрана меньше 630 пикселей */
+     .timeWidget {
+         display: none;
+     }
+     .bigscreendevider {
+            display: none
+     }
+ }
+ @media all and (max-width:1000px) {
+    /*Не отображать шапку и разделитель шапки, если ширина экрана меньше 1000 пикселей */
+     .bigMenu {
+        display: none;
+     }
+     .clocks {
+         display: none;
+     }
+      .enterButton {
+         display: none;
+      }
+ }
+  /*Не отображать мобильное меню и мобильное лого, если ширина экрана больше 1000 пикселей */
+ @media not all and (max-width:1000px) {
+    .mobileMenu {
+          display: none;
+    }
+    .mobilelogo {
+          display: none;
+    }
+ }
+.heading { /* Шапка */
+    background-image: url(../wrapper/back.jpg); /* Путь к фоновому изображению */
+    background-color: #c7b39b; /* Цвет фона */
+}
+.mainInfo { /* Середина сайта */
+       /*background-image: url(../wrapper/woodwall.jpg); */ /* Путь к фоновому изображению */
+   background-color: 	#E4D3BA; /* Цвет фона */
+}
+.enterButton {
+   position: right;
+   float: right;
+ }
+ /* Кнопка вверх */
+
+div.scrollup {
+   position: fixed; /* фиксированная позиция */
+   color: #fff; /* цвет текста */
+   background-color: #8B4513  ; /* цвет заднего фона */
+   right: 40px; /* расстояние от правого края */
+   bottom: 0px; /* расстояние от нижнего края */
+   padding: 4px 10px; /* отступы до содержимого блока */
+   font-size: 20px; /* размер шрифта (иконки) */
+   border-top-left-radius: 4px; /* скругление верхнего левого угла */
+   border-top-right-radius: 4px; /* скругление верхнего правого угла */
+   cursor: pointer; /* форма курсора */
+   display: none; /* не отображать элемент */
+   text-align: center; /*выравнивание содержимого элемента по центру */
+ }
+ div.scrollup:hover {
+   background-color: #000; /* цвет заднего фона при наведении */
+ }
+ 

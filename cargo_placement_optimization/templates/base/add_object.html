@@ -1,0 +1,30 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<!-- Страница для добавления объектов -->
+{% if user.is_authenticated %}
+<form role="form" method="POST" action="add_object">
+  {% csrf_token %}
+  <div class = "form-group">
+    <label for="id">Идентификатор:</label>
+    <input type="number" name="id" min="0" step="any" required><p>
+    <label for="name">Наименование:</label>
+    <textarea class="form-control" name="name" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите наименование объекта" required></textarea>
+    <label for="manufacturer">Производитель:</label>
+    <textarea class="form-control" name="manufacturer" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите производителя" required></textarea>
+    <label for="weight">Вес (В килограммах):</label> <p><p>
+    <input type="number" name="weight" min="1" max="99" step="any" required><p><p>
+    <label for="consignment">Партия</label>
+    <textarea class="form-control" name="consignment" id="exampleFormControlTextarea1" required rows="1" placeholder="Введите номер партии" required></textarea>
+    <label for="base_price">Цена</label> <p><p>
+    <input type="number" name="base_price" min="1" step="any" required> <p><p>
+    <label for="stock_num">Номер склада</label>
+    <textarea class="form-control" name="stock_num" id="exampleFormControlTextarea1" required rows="1" placeholder="Введите номер склада" required></textarea>             
+    <p><p>
+    <input type="submit" class ="btn btn-success" value="Добавить" >
+</form>
+{% else %}
+  <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+
+{% endblock %}

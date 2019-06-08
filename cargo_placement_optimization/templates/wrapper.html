@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Шапка, которая присутствует на каждой странице -->
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Масштабирование на мобильных устройствах -->
+  <meta http-equiv="X-UA-Compatible" content = "ie=edge">
+  {% load static %}
+  <link rel="stylesheet" href = "/static/css/wrapper.css">
+  <link rel="stylesheet" href="/static/fontawesome-free-5.9.0-web/css/all.min.css">
+  <!-- Подключение bootstrap-->
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  <script src="/static/js/jquery-3.3.1.min.js"></script>
+  <script src="/static/js/popper.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <!--Конец подключение bootstrap-->
+  <script src="/static/js/wrapper.js"></script>
+</head>
+<body style="background-color:#E4D3BA">
+  <div class = "heading">
+    <div class = "container-fluid">
+    <!-- Показать приветствие пользователя -->
+      {% if user.is_authenticated %}
+        Здравствуйте, {{ user.username }}
+      {% else %}
+        Здравствуйте, Гость
+      {% endif %}
+      <div class="enterButton">
+        {% include "menus/enterbutton.html" %} <!--Кнопка входа -->
+      </div>
+          {% include "menus/mobile.html" %} <!-- Встраивание мобильного меню-->
+      <hr>
+      {% include "menus/bigmenu.html" %} <!-- Встраивание большого (широкого) меню-->
+        </div>
+</div>
+      <div class = "mainInfo">
+<div class="scrollup">
+    <!-- Иконка fa-chevron-up (Font Awesome) -->
+    <i class="far fa-hand-point-up"></i>
+</div>
+{% block content %}
+{% endblock %}
+<hr>
+&copy Сервис создан в рамках дипломной работы курсантом 431 группы <a href ="https://vk.com/id523343891"> Замула Иван</a> ТАТК ГА
+</div>
+</body>
+</html>

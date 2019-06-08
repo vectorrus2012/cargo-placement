@@ -1,0 +1,161 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<style>
+    td:nth-child(3) {
+      background: rgb(255,204,255)
+    }
+    td:nth-child(2) {
+      background: white
+    }
+    td:nth-child(4) {
+      background: lightpink
+    }
+    td:nth-child(1) {  
+      background: lightcyan
+    }
+    td:nth-child(5) {  
+      background: lightcyan
+    }
+    td:nth-child(6) {  
+      background: lightgreen
+    }
+    td:nth-child(7) {  
+      background: lightgoldenrodyellow
+    }
+</style>
+{% csrf_token %}
+<!-- Страница для составления карты расположения -->
+{% if user.is_authenticated %}
+<p align = "center"> 
+    Погруженные объекты
+</p>
+<table border="1" align="center">
+  <td>Места</td>
+  <td>
+    Нижний ряд  
+  </td>
+  <td>
+    Верхний ряд
+  </td> 
+  {% for obj_id in objects_ids %}
+  {% if not forloop.counter|divisibleby:"2" %}
+  <tr> <!--Следующая строка (переход из шапки на строки результата)-->
+    <td>
+        {{forloop.counter}} 
+    </td>
+  <td>
+    {{obj_id}}
+  </td>
+  {% elif forloop.counter|divisibleby:"2" %}
+  <td>
+    {{obj_id}}
+  </td>
+  {% endif %}
+  {% endfor %} 
+</table>
+<hr>
+<p align="center">
+  Информация о погружаемых объектах:
+  <table border="1" align="center">
+      <td>
+        Идентификатор  
+      </td>
+      <td>
+        Вес объекта
+      </td>     
+      <td>
+          Наименование объекта
+      </td> 
+      <td>
+          Производитель
+      </td> 
+      <td>
+          Партия
+      </td> 
+      <td>
+          Цена
+      </td> 
+      <td>
+          Номер склада
+      </td> 
+      {% for obj in obj_info %}
+        <tr>
+          <td>
+              {{obj.id_Objectss}}
+          </td>
+          <td>
+              {{obj.weight}}
+          </td>
+          <td>
+              {{obj.name}}
+          </td>
+          <td>
+              {{obj.manufacturer}}
+          </td>
+          <td>
+              {{obj.consignment}}
+          </td>
+          <td>
+              {{obj.base_price}}
+          </td>    
+          <td>
+              {{obj.stock_num}}
+          </td>       
+        </tr>
+      {% endfor %} 
+  </table> 
+<p align="center">
+      Информация о непогружаеных объектах:
+      <table border="1" align="center">
+          <td>
+            Идентификатор  
+          </td>
+          <td>
+            Вес объекта
+          </td>     
+          <td>
+              Наименование объекта
+          </td> 
+          <td>
+              Производитель
+          </td> 
+          <td>
+              Партия
+          </td> 
+          <td>
+              Цена
+          </td> 
+          <td>
+              Номер склада
+          </td> 
+          {% for obj in not_packed %}
+            <tr>
+              <td>
+                  {{obj.id_Objectss}}
+              </td>
+              <td>
+                  {{obj.weight}}
+              </td>
+              <td>
+                  {{obj.name}}
+              </td>
+              <td>
+                  {{obj.manufacturer}}
+              </td>
+              <td>
+                  {{obj.consignment}}
+              </td>
+              <td>
+                  {{obj.base_price}}
+              </td>    
+              <td>
+                  {{obj.stock_num}}
+              </td>       
+            </tr>
+          {% endfor %} 
+      </table> 
+{% else %}
+  <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

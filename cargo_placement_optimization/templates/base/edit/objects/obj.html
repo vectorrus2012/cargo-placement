@@ -1,0 +1,65 @@
+{% extends "wrapper.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<p align="center">Текущий выбранный предмет:</p>
+<table border="1" bordercolor="RoyalBlue" style="margin: auto">
+    <tr>
+     <th>Идентификатор</th>
+     <th>Вес(килограммы)</th>
+     <th>Наименование объекта</th>
+     <th>Производитель</th>
+     <th>Партия</th>
+     <th>Цена</th>
+     <th>Номер склада</th>
+    </tr>
+        <form role="form" method="POST" action="change_car_params">
+            {% csrf_token %}
+        <td>{{obj.0.id_Objectss}}</td>
+        <td>{{obj.0.weight}}</td>
+        <td>{{obj.0.name}}</td>
+        <td>{{obj.0.manufacturer}}</td>
+        <td>{{obj.0.consignment}}</td>
+        <td>{{obj.0.base_price}}</td>
+        <td>{{obj.0.stock_num}}</td>
+</table>
+<hr>
+<table border="1" style="margin: auto">
+        <tr>
+            <th>Вес</th>
+            <th>Наименование объекта</th>
+            <th>Производитель</th>
+            <th>Партия</th>
+            <th>Цена</th>
+            <th>Номер склада</th>
+        </tr>
+    {% for objects in obj %} 
+        <tr>
+        <td>
+            <input type="number" name="new_weight" step="any" min = "1" max="99" value={{objects.weight}} required>     
+        </td>
+        <td>
+            <input type="text" name="new_name" value={{objects.name}} required>
+        </td>
+        <td>
+            <input type="text" name="new_manufacturer" value={{objects.manufacturer}} required>
+        </td>
+        <td>
+            <input type="text" name="new_consignment" value={{objects.consignment}} required>
+        </td>
+        <td>
+            <input type="number" name="new_base_price" step="any" min = "1"  value={{objects.base_price}} required>
+        </td>
+        <td>
+            <input type="text" name="new_stock_num" value={{objects.stock_num}} required>
+        </td>
+    {% endfor %}
+</table>
+<p>
+<p align="center">
+    <input type="submit" class ="btn btn-success" value="Изменить параметры объекта"></p>
+</form>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "wrapper.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<p align="center">Текущее выбранное место:</p>
+<table border="1" bordercolor="RoyalBlue" style="margin: auto">
+    <tr>
+     <th>Идентификатор</th>
+     <th>Название места доставки</th>
+     <th>Компания/Владелец места доставки</th>
+     <th>Страна доставки</th>
+     <th>Штат/ областиь доставки</th>
+     <th>Город доставки</th>
+     <th>Улица доставки</th>
+     <th>Место на карте (ссылка)</th>
+    </tr>
+        <form role="form" method="POST" action="change_pl_params">
+            {% csrf_token %}
+        <td>{{pl.0.id_Places}}</td>
+        <td>{{pl.0.name}}</td>
+        <td>{{pl.0.company}}</td>
+        <td>{{pl.0.country}}</td>
+        <td>{{pl.0.state}}</td>
+        <td>{{pl.0.city}}</td>
+        <td>{{pl.0.street}}</td>
+        <td>{{pl.0.link}}</td>
+</table>
+<hr>
+<table border="1" style="margin: auto">
+        <tr>
+            <th>Название</th>
+            <th>Компания/Владелец</th>
+            <th>Страна доставки</th>
+            <th>Областиь доставки</th>
+            <th>Город доставки</th>
+            <th>Улица доставки</th>
+            <th>Место на карте (ссылка)</th>
+        </tr>
+    {% for places in pl %} 
+        <tr>
+        <td>
+            <input type="textarea" name="new_name" value={{places.name}} required>
+        </td>
+        <td>
+            <input type="textarea" name="new_company" value={{places.company}} required>
+        </td>
+        <td>
+            <input type="textarea" name="new_country" value={{places.country}} required>
+        </td>
+        <td>
+            <input type="textarea" name="new_state" value={{places.state}} required>
+        </td>
+        <td>
+            <input type="textarea" name="new_city" value={{places.city}} required>
+        </td>
+        <td>
+            <input type="textarea" name="new_street" value={{places.street}} required>
+        </td>
+        <td>
+            <input type="textarea" name="new_link" value={{places.link}} required>
+        </td>
+    {% endfor %}
+</table>
+<p>
+<p align="center">
+    <input type="submit" class ="btn btn-success" value="Изменить параметры места"></p>
+</form>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

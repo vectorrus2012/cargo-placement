@@ -1,0 +1,36 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<!-- Страница для отправки отзывов -->
+{% if user.is_authenticated %}
+<form role="form" method="POST" action="sendfeedback/create/">
+  {% csrf_token %}
+  <div class = "form-group">
+    <label for="name">Сообщение:</label>
+    <label for="message" class="sr-only">Сообщение</label>
+    <textarea class="form-control" name="message" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите ваше сообщение"></textarea>
+    <label for="email">Email:</label>
+    <input type = "email" class = "form-control" id="email" required name="email"
+    placeholder="Введите email">
+    <label for="name">Ваше имя:</label>
+    <p>
+    <textarea class="form-control" name="name" id="exampleFormControlTextarea1"
+    required rows="1" readonly
+    placeholder="">{{ user.username }}</textarea>
+    <p>
+    <label for="mark">Оценка сервису:</label>
+    <select class="form-control" name="mark" id="exampleFormControlSelect1">
+      <option>5</option>
+      <option>4</option>
+      <option>3</option>
+      <option>2</option>
+      <option>1</option>
+    </select>
+    <p>
+    <input type="submit" class ="btn btn-success" value="Отправить" >
+</form>
+{% else %}
+  <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+
+{% endblock %}

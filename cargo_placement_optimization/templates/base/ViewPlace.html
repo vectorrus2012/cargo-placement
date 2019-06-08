@@ -1,0 +1,36 @@
+{% extends "wrapper.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<table border="1">
+        <tr>
+            <th>Идентификатор</th>
+            <th>Наименование места</th>
+            <th>Компания</th>
+            <th>Страна</th>
+            <th>Регион/штат</th>
+            <th>Город</th>
+            <th>Улица</th>
+            <th>Ссылка на карту/Координаты места</th>
+            <th>Удалить</th>
+        </tr>
+    {% for place_info in Place %}
+    <td><a href= {% url 'select_new_pl_params' id_pl=place_info.id_Places %}>{{place_info.id_Places}} <i class="fas fa-sliders-h"></i></a></td>
+        <td>{{place_info.name}}</td>
+        <td>{{place_info.company}}</td>
+        <td>{{place_info.country}}</td>
+        <td>{{place_info.state}}</td>
+        <td>{{place_info.city}}</td>
+        <td>{{place_info.street}}</td>
+        <td>{{place_info.link}}</td>     
+        <td>
+            <form onSubmit='return confirm("Удалить из базы объект".join(place_info.name).join("?"));'>
+                    <a href= {% url 'del_place' id_place=place_info.id_Places %}><i class="fas fa-trash"></i></a>
+                    </form>
+    {% endfor %}
+    </table>
+    <hr>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- Лого для отображения в мобильной версии -->
+{% load static %}
+<div class="mobilelogo">
+        <img src="{% static 'wrapper/hotel-logo.png' %}" id="dp14" style="margin-bottom: 3px;">
+      </div>
+      <div class = "mobileMenu">
+      <!-- Кнопка раскрытия меню для мобильных-->
+      <div class="navbar-header">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          Меню
+        </button>
+      </div>
+      <!-- Конец кнопка раскрытия меню для мобильных-->
+   <!-- Само меню-->
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="text-align: right;">
+   <ul class="nav navbar-nav">
+   <li><a href="/" class = "btn btn-group-vertical">Главная страница<i class="fas fa-home"></i></a></li>
+   <li><a class="dropdown-item" href="/base/objects">Список объектов <i class="fas fa-cubes"></i></a></li>
+   <li><a class="dropdown-item" href="/base/add_object">Добавить объект <i class="fas fa-share-square"></i></a></li>
+   <li><a class="dropdown-item" href="/base/cars">Список машин <i class="fas fa-truck"></i></a></li>
+   <li><a class="dropdown-item" href="/base/add_car">Добавить машину <i class="fas fa-share-square"></i></a></li>
+   <li><a class="dropdown-item" href="/base/ViewPlace">Список мест доставки <i class="fas fa-map"></i></a></li>
+   <li><a class="dropdown-item" href="/base/add_place">Добавить место доставки <i class="fas fa-share-square"></i></a></li>
+   <li><a class="dropdown-item" href="/base/View_Order">Список заказов <i class="fas fa-file-contract"></i></a></li>
+   <li><a class="dropdown-item" href="/base/add_order">Добавить заказ <i class="fas fa-share-square"></i></a></li>
+   <li><a class="dropdown-item" href="/base/View_objects_for_order">Список объектов для погрузки <i class="fas fa-cubes"></i></a></li>
+   <li><a class="dropdown-item" href="/base/add_objects_for_order">Добавить объект для погрузки <i class="fas fa-share-square"></i></a></li>
+   <li><a href = "/create_map" class="dropdown-item">Карта расположения</a></li>
+   <li><a href="/information" class = "btn btn-group-vertical">Информация о сервисе<i class="fas fa-info-circle"></i></a></li>
+   <li><a href="/about/contact" class = "btn btn-group-vertical">Контактная информация<i class="fas fa-file-invoice"></i></a></li>
+   <li><a href="/login/" class = "btn btn-group-vertical">Авторизация<i class="fas fa-sign-in-alt"></i></a></li>
+   <li><a href="/exit/" class = "btn btn-group-vertical">Выйти из профиля<i class="fas fa-sign-out-alt"></i></a></li>
+   </ul>
+   </div>
+    </div>
+  </div>
+  </nav>

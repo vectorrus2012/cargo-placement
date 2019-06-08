@@ -1,0 +1,26 @@
+﻿{% extends "wrapper.html" %}
+{% block content %}
+
+<table border="1">
+    <tr>
+    <th>Идентификатор перевозки объекта для заказа</th>
+    <th>Идентификатор объекта</th>
+    <th>Порядок погрузки</th>
+    <th>Идентификатор заказа</th>
+    <th>Идентификатор места доставки объекта</th>
+    <th>Количиство объектов для доставки</th>
+	<th>Удалить</th>
+   </tr>
+   <tr>
+       {% for obj in obj_for_order %}
+           <td>{{obj.id_ObjectsForOrders}}</td>
+           <td>{{obj.id_object.id_Objectss}}</td>
+           <td>{{obj.order_placement}}</td>
+           <td>{{obj.id_order.id_Orders}}</td>
+           <td>{{obj.id_place_to_delivery.id_Places}}</td>
+           <td>{{obj.count}}</td>     
+           <td><a href= {% url 'del_obj_for_order' id_obj_for_order=obj.id_ObjectsForOrders %}><i class="fas fa-trash"></i></a></tr>
+       {% endfor %}   
+ </table>
+ 
+ {% endblock %}

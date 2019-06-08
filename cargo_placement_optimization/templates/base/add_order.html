@@ -1,0 +1,27 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<script src="https://momentjs.com/downloads/moment.js"></script>
+
+<!-- Страница для добавления объектов -->
+{% if user.is_authenticated %}
+<form role="form" method="POST" action="add_order">
+  {% csrf_token %}
+  <div class = "form-group">
+    <label for="id">Идентификатор заказа:</label>
+    <input type="number" name="id" min="0" step="any" required><p>   
+    <label for="id_car">Идентификатор машины:</label>
+    <input type="number" name="id_car" min="0" step="any" required><p><p>
+    <label for="date_departure">Дата и время отправки заказа:</label>
+    <input type="date" id="localdate" name="date_departure" required/>
+    <input type="time" id="localdate" name="time_departure" required/>
+    <label for="date_completion">Дата и время завершения заказа:</label>
+    <input type="date" id="localdate" name="date_completion" required/>   
+    <input type="time" id="localdate" name="time_completion" required/>              
+    <input type="submit" class ="btn btn-success" value="Добавить"> 
+</form>
+{% else %}
+  <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+
+{% endblock %}

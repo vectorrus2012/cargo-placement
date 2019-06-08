@@ -1,0 +1,45 @@
+{% extends "wrapper.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<p align="center">Текущий выбранный заказ:</p>
+<table border="1" bordercolor="RoyalBlue" style="margin: auto">
+    <tr>
+     <th>Идентификатор заказа</th>
+     <th>Идентификатор машины</th>
+     <th>Дата и время отправки заказа</th>
+     <th>Дата и время завершения заказа</th>
+    </tr>
+        <form role="form" method="POST" action="change_ord_params">
+            {% csrf_token %}
+        <td>{{ords.0.id_Orders}}</td>
+        <td>{{ords.0.id_car}}</td>
+        <td>{{ords.0.date_departure}}</td>
+        <td>{{ords.0.date_completion}}</td>
+</table>
+<hr>
+<table border="1" style="margin: auto">
+        <tr>
+            <th>Дата и время отправки заказа</th>
+            <th>Дата и время завершения заказа</th>
+        </tr>
+    {% for order in ords %} 
+        <tr>
+        <td>
+            <input type="date" name="new_dep_date" required>    
+            <input type="time" name="new_dep_time" required>  
+        </td>
+        <td>
+            <input type="date" name="new_comp_date" required>
+            <input type="time" name="new_comp_time" required>
+        </td>
+    {% endfor %}
+</table>
+<p>
+<p align="center">
+    <input type="submit" class ="btn btn-success" value="Изменить время заказа"></p>
+</form>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

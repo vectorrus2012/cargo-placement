@@ -1,0 +1,23 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<!-- Страница для выбора параметров составления карты расположения -->
+{% if user.is_authenticated %}
+<form role="form" method="POST" action="map_create">
+  {% csrf_token %}
+  <div class = "form-group">
+    <label for="id">Идентификатор заказа:</label>
+    <input type="number" name="id_order" min="0" step="any" required><p></p>    
+    <label for="optimise">Метод оптимизации:</label>
+    <select size="3" name = "optimise">
+      <option disabled>Выберите метод оптимизации</option>
+      <option selected value="Weight">По весу</option>
+      <option value="Value">По стоимости</option>
+    </select>          
+    <p><p>
+    <input type="submit" class ="btn btn-success" value="Составить карту" >
+</form>
+{% else %}
+  <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

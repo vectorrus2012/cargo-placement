@@ -1,0 +1,65 @@
+{% extends "wrapper.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<p align="center">Текущая выбранная машина:</p>
+<table border="1" bordercolor="RoyalBlue" style="margin: auto">
+    <tr>
+     <th>Идентификатор Машины</th>
+     <th>Брэнд машины</th>
+     <th>Модель</th>
+     <th>Вес машины(тонны)</th>
+     <th>вес прицепа(тонны)</th>
+     <th>Количество осей прицепа</th>
+     <th>Количество осей машины</th>
+    </tr>
+        <form role="form" method="POST" action="change_car_params">
+            {% csrf_token %}
+        <td>{{Car.0.id_Car}}</td>
+        <td>{{Car.0.Brand}}</td>
+        <td>{{Car.0.Model}}</td>
+        <td>{{Car.0.maxWeight}}</td>
+        <td>{{Car.0.trailer_weight}}</td>   
+        <td>{{Car.0.trailer_ax_count}}</td>
+        <td>{{Car.0.car_ax_count}}</td>    
+</table>
+<hr>
+<table border="1" style="margin: auto">
+        <tr>
+         <th>Брэнд машины</th>
+         <th>Модель машины</th>
+         <th>Вес машины(тонны)</th>
+         <th>вес прицепа(тонны)</th>
+         <th>Количество осей прицепа</th>
+         <th>Количество осей машины</th>
+        </tr>
+    {% for car_info in Car %} 
+        <tr>
+        <td>
+            <input type="text" name="new_brand" value={{car_info.Brand}} required>     
+        </td>
+        <td>
+            <input type="text" name="new_model" value={{car_info.Model}} required>
+        </td>
+        <td>
+            <input type="number" name="new_max_weight" min="1" max="99" step="any" required>
+        </td>
+        <td>
+            <input type="number" name="new_trailer_weight" min="1" max="99" step="any" required> 
+        </td>
+        <td>
+            <input type="number" name="new_trailer_ax_count" min="2" max="3" step="any" required>
+        </td>
+        <td>
+            <input type="number" name="new_car_ax_count" min="2" max="3" step="any" required>
+        </td>
+    {% endfor %}
+</table>
+<p>
+<p align="center">
+    <input type="submit" class ="btn btn-success" value="Изменить параметры машины"></p>
+</form>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

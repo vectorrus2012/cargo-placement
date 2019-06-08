@@ -1,0 +1,67 @@
+{% load static %}
+<link rel="stylesheet" href = "/static/css/bigMenu.css">
+      <!-- Меню-шапка -->
+      <div class = "bigMenu">
+            <table width="100%"> <!--Самая верхняя шапка-->
+      <tr>
+            <th><img src="{% static 'wrapper/hotel-logo.png' %}" id="dp14" style="margin-bottom: 3px;"/>
+             </th>
+            <th><a href = "/" class ="btn btn-primary btn-sm menubuttons">Главная страница</a></th>
+              <div class="dropdown open">
+                <th><button class="btn btn-info btn-sm menubuttons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Объекты
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/base/objects">Список объектов <i class="fas fa-cubes"></i></a>
+                  <a class="dropdown-item" href="/base/add_object">Добавить объект <i class="fas fa-share-square"></i></a>
+                </div>
+              </div>            
+              <div class="dropdown open">
+                <th><button class="btn btn-info btn-sm menubuttons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Автомобили
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/base/cars">Список машин <i class="fas fa-truck"></i></a>
+                  <a class="dropdown-item" href="/base/add_car">Добавить машину <i class="fas fa-share-square"></i></a>
+                </div>
+              </div>       
+              <div class="dropdown open">
+                  <th><button class="btn btn-info btn-sm menubuttons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Места доставки
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/base/ViewPlace">Список мест доставки <i class="fas fa-map"></i></a>
+                    <a class="dropdown-item" href="/base/add_place">Добавить место доставки <i class="fas fa-share-square"></i></a>
+                  </div>
+              </div>   
+              <div class="dropdown open">
+                <th><button class="btn btn-info btn-sm menubuttons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Заказы
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/base/View_Order">Список заказов <i class="fas fa-file-contract"></i></a>
+                  <a class="dropdown-item" href="/base/add_order">Добавить заказ <i class="fas fa-share-square"></i></a>
+                </div>
+            </div>   
+            <div class="dropdown open">
+              <th><button class="btn btn-info btn-sm menubuttons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Объекты для погрузки
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/base/View_objects_for_order">Список объектов для погрузки <i class="fas fa-cubes"></i></a>
+                <a class="dropdown-item" href="/base/add_objects_for_order">Добавить объект для погрузки <i class="fas fa-share-square"></i></a>
+              </div>
+            </div>          
+            <div class="dropdown open">
+              <th><button class="btn btn-info btn-sm menubuttons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                О сервисе
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/information">Информация о сервисе <i class="fas fa-comment"></i></a>
+                <a class="dropdown-item" href="/about/contact">Контактная информация <i class="fas fa-share-square"></i></a>
+              </div>                
+          </div> 
+          <th><a href = "/create_map" class ="btn btn-primary btn-sm menubuttons">Карта расположения</a></th>
+          </tr>
+      </table>
+      </div>

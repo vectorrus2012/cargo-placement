@@ -1,0 +1,32 @@
+{% extends "wrapper.html" %}
+
+{% block content %}
+<!-- Страница для добавления объектов -->
+{% if user.is_authenticated %}
+<form role="form" method="POST" action="add_place">
+  {% csrf_token %}
+  <div class = "form-group">
+    <label for="id">Идентификатор:</label>
+    <input type="number" name="id" min="0" step="any" required><p> 
+    <label for="name">Наименование:</label>
+    <textarea class="form-control" name="name" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите наименование места" required></textarea>
+    <label for="company">Компания или ИП:</label>
+    <textarea class="form-control" name="company" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите наименование компании или ИП" required></textarea>
+    <label for="country">Страна:</label>
+    <textarea class="form-control" name="country" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите страну" required></textarea>
+    <label for="state">Регион или штат</label>
+    <textarea class="form-control" name="state" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите Регион или штат" required></textarea>
+    <label for="city">Город</label>
+    <textarea class="form-control" name="city" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите город" required></textarea>
+    <label for="street">Улица/авеню</label>
+    <textarea class="form-control" name="street" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите Улицу или авеню" required></textarea>
+    <label for="link">Ссылка на карту/Координаты места</label>
+    <textarea class="form-control" name="link" id="exampleFormControlTextarea1" required rows="3" placeholder="Введите Ссылку на карту/Координаты места" required></textarea>             
+    <p><p>
+    <input type="submit" class ="btn btn-success" value="Добавить" >
+</form>
+{% else %}
+  <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "wrapper.html" %}
+{% block content %}
+<html>
+  <head>
+    <title>Авторизация</title>
+  </head>
+  <body style="background-color:#B4D8E7" >
+  <div class="container-fluid">
+    <center>
+    <form action="" method="post">
+      {% csrf_token %}
+      <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
+      {{ form.as_p }}
+      <button type="submit">Авторизоваться</button>
+    </form>
+    </center>
+    </div>
+  </body>
+</html>
+{% endblock %}

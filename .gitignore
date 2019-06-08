@@ -1,0 +1,7 @@
+/db.sqlite3
+/cargo/settings.py
+/.idea/
+/cargo/__pycache__/
+/cargo_placement_optimization/.idea/
+/cargo_placement_optimization/__pycache__/
+/cargo_placement_optimization/migrations/

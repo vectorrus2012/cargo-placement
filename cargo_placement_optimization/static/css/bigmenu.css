@@ -1,0 +1,10 @@
+.menubuttons { /* Стиль кнопок меню (большие экраны) */
+    background-color:#FFDEAD;
+    color:#292929;
+    border-color: #696969;
+  }
+  .menubuttons:hover { /* Стиль кнопок меню при наведении (большие экраны) */
+    background-color:#A9A9A9;
+    color:#800000;
+    border-color: #696969;
+  }

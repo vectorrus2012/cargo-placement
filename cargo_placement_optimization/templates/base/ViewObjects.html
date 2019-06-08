@@ -1,0 +1,34 @@
+﻿{% extends "wrapper.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+{% csrf_token %}
+<table border="1">
+        <tr>
+         <th>Идентификатор</th>
+         <th>Наименование</th>
+         <th>Производитель</th>
+         <th>Вес объекта(килограммы)</th>
+         <th>Партия</th>
+         <th>Цена</th>
+         <th>Номер склада</th>
+         <th>Удалить</th>
+        </tr>
+    {% for obj_info in objectss %}
+        <tr>
+        <td><a href= {% url 'select_new_obj_params' id_obj=obj_info.id_Objectss %}>{{obj_info.id_Objectss}} <i class="fas fa-sliders-h"></i></a></td> 
+        <td>{{obj_info.name}}</td>
+        <td>{{obj_info.manufacturer}}</td>
+        <td>{{obj_info.weight}}</td>
+        <td>{{obj_info.consignment}}</td>
+        <td>{{obj_info.base_price}}</td>
+        <td>{{obj_info.stock_num}}</td>     
+        <td>
+            <a href= {% url 'del_obj' id_obj=obj_info.id_Objectss %}><i class="fas fa-trash"></i></a>
+                </tr>
+    {% endfor %}
+    </table>
+    <hr>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
+{% endblock %}

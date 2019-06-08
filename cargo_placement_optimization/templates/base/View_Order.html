@@ -1,0 +1,23 @@
+{% extends "wrapper.html" %}
+{% block content %}
+
+<table border="1">
+        <tr>
+         <th>Идентификатор заказа</th>
+         <th>Идентификатор машины</th>
+         <th>Дата отправки заказа</th>
+         <th>Дата завершения отправки заказа</th>
+         <th>Удалить</th>
+        </tr>
+        {% for order_info in Orders %}
+            <tr>
+            <td><a href= {% url 'select_new_ord_params' id_ord=order_info.id_Orders %}>{{order_info.id_Orders}} <i class="fas fa-sliders-h"></i></a></td>
+            <td><a href= {% url 'select_car' id_order=order_info.id_Orders %}>{{order_info.id_car}} <i class="fas fa-car"></i></a></td>
+            <td>{{order_info.date_departure}}</td>
+            <td>{{order_info.date_completion}}</td>
+            <td><a href= {% url 'del_order' id_order=order_info.id_Orders %}><i class="fas fa-trash"></i></a></td></tr>
+        {% endfor %}
+</table>
+<hr>
+
+{% endblock %}
