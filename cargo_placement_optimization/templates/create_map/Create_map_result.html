@@ -23,15 +23,25 @@
     td:nth-child(7) {  
       background: lightgoldenrodyellow
     }
+    .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.center2 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
 {% csrf_token %}
 <!-- Страница для составления карты расположения -->
 {% if user.is_authenticated %}
-<p align = "center"> 
-    Погруженные объекты
-</p>
+<!--<p align = "center"> 
+    Погруженные объекты  </p> -->
+<img src="/static/Images/palett-fur.png" class="center">
 <table border="1" align="center">
-  <td>Места</td>
+  <!-- <td>Места</td> -->
   <td>
     Нижний ряд  
   </td>
@@ -41,9 +51,9 @@
   {% for obj_id in objects_ids %}
   {% if not forloop.counter|divisibleby:"2" %}
   <tr> <!--Следующая строка (переход из шапки на строки результата)-->
-    <td>
+    <!-- <td>
         {{forloop.counter}} 
-    </td>
+    </td> -->
   <td>
     {{obj_id}}
   </td>
@@ -53,7 +63,8 @@
   </td>
   {% endif %}
   {% endfor %} 
-</table>
+</table> 
+<img src="/static/Images/end.png" class="center2"> 
 <hr>
 <p align="center">
   Информация о погружаемых объектах:
