@@ -4,13 +4,6 @@ from django.conf.urls import url
 from django.urls import path
 
 urlpatterns = [
-    # path('feedback/sendfeedback/create/', views.create_review),
-    # path('feedback/sendfeedback', views.send_feedback),
-    # path('feedback', views.feedback),
-    # url(r'^register/$', views.RegisterFormView.as_view()),  # Регистрация
-    # Отображение ошибок
-    # path('error_duplicate', views.return_to_back),  # Показ ошибки о повторном идентификаторе
-    # path('error_date', views.return_to_back),  # Показ ошибки о некорректных данных
     path('information', views.information),  # Информация о сервисе
     path('admin/', admin.site.urls),  # Админка
     path('about/contact', views.contact),  # Контакты

@@ -1,14 +1,6 @@
 from django.db import models
 
 
-class Reviews(models.Model):  # табличка в бд с отзывами
-    message = models.TextField()  # Содержание отзыва
-    email = models.TextField()  # Электронный адрес пользователя
-    name = models.TextField()  # Имя пользователя
-    mark = models.IntegerField()  # Оценка
-    date = models.DateTimeField()  # Дата отзыва
-
-
 class Cars(models.Model):
     id_Car = models.TextField(primary_key=True)  # Идентификатор машины
     Brand = models.TextField()  # Брэнд машины

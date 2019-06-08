@@ -11,13 +11,6 @@ from django.views.generic.base import View
 from .alghorithm import *
 
 
-#def viewTable(request, table):
-    #user = Reviews.objects.all().order_by("-date")  # Сортировка результата выборки по дате
-    #return render(request, "feedback.html", {"user": user})
-
-
-# Для регистрации
-
 
 class LogoutView(View): # Разлогинивание
     def get(self, request):
@@ -28,43 +21,20 @@ class LogoutView(View): # Разлогинивание
         return HttpResponseRedirect("/")
 
 
-class LoginFormView(FormView):
+class LoginFormView(FormView):  # Форма авторизации
     form_class = AuthenticationForm
-
     # Аналогично регистрации, только используем шаблон аутентификации.
     template_name = "login.html"
-
     # В случае успеха перенаправим на главную.
     success_url = "/"
+
 
     def form_valid(self, form):
         # Получаем объект пользователя на основе введённых в форму данных.
         self.user = form.get_user()
-
         # Выполняем аутентификацию пользователя.
         login(self.request, self.user)
         return super(LoginFormView, self).form_valid(form)
-
-
-#class RegisterFormView(FormView):
-    #form_class = UserCreationForm
-    # Ссылка, на которую будет перенаправляться пользователь в случае успешной регистрации.
-    # В данном случае указана ссылка на страницу входа для зарегистрированных пользователей.
-    #success_url = "/login/"
-    # Шаблон, который будет использоваться при отображении представления.
-    #template_name = "register.html"
-
-    #def form_valid(self, form):
-        # Создаём пользователя, если данные в форму были введены корректно.
-        #form.save()
-
-        # Вызываем метод базового класса
-        #return super(RegisterFormView, self).form_valid(form)
-
-
-#class round_Mark(Func):
-  #function = 'ROUND'
-  #arity = 2
 
 
 # Показать главную страницу
@@ -82,14 +52,10 @@ def contact(request):
     return render(request, 'contact_information.html')
 
 
-# Показать страницу отправки отзыва
-#def send_feedback(request):
-    #return render(request, 'sendfeedback.html')
-
-
 # Показать страницу отправки параметров карты расположения
 def map_params(request):
     return render(request, 'create_map/create_map.html')
+
 
 # Генерация карты расположения грузов
 def map_create(request):
@@ -238,6 +204,7 @@ def show_objects_for_order(request):
     return render(request, 'base/ViewObjectsForOrders.html', {"obj_for_order":obj_for_order})
 
 
+# Добавление объекта
 def add_object(request):
     if request.method == "POST":  # Если из формы вызывается метод post
         objects = Objectss()  # Создаётся новый объект класса
@@ -253,6 +220,7 @@ def add_object(request):
     return render(request, 'base/add_object.html')
 
 
+# Добавление места доставки
 def add_place(request):
     if request.method == "POST":  # Если из формы вызывается метод post
         places = Places()  # Создаётся новый объект класса
@@ -269,6 +237,7 @@ def add_place(request):
     return render(request, 'base/add_place.html')
 
 
+# Добавление автомобилей
 def add_car(request):
     if request.method == "POST":  # Если из формы вызывается метод post
         cars = Cars()  # Создаётся новый объект класса
@@ -284,6 +253,7 @@ def add_car(request):
     return render(request, 'base/add_car.html')
 
 
+# Добавление заказов
 def add_order(request):
     if request.method == "POST":  # Если из формы вызывается метод post
         id_car = request.POST.get("id")
@@ -305,6 +275,7 @@ def add_order(request):
         return render(request, 'base/add_order.html')
 
 
+# Добавление объектов для заказа
 def add_objects_for_order(request):
     if request.method == "POST":  # Если из формы вызывается метод post
         obj_order = ObjectsForOrders()  # Создаётся новый объект класса
@@ -319,31 +290,37 @@ def add_objects_for_order(request):
     return render(request, 'base/add_obj_for_order.html')
 
 
+# Удаление объектов 
 def delete_object(request, id_obj):
     Objectss.objects.get(id_Objectss=id_obj).delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Удаление машин
 def delete_car(request, id_car):
     Cars.objects.get(id_Car=id_car).delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Удаление мест доставки
 def delete_place(request, id_place):
     Places.objects.get(id_Places=id_place).delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Удаление заказов
 def delete_order(request, id_order):
     Orders.objects.get(id_Orders=id_order).delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Удаление объектов для заказа
 def delete_object_for_order(request, id_obj_for_order):
     ObjectsForOrders.objects.get(id_ObjectsForOrders=id_obj_for_order).delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Список машин для выбора в заказе
 def select_car(request, id_order):
     cars = Cars.objects.all().order_by("-date_add")  # Сортировка результата выборки по дате
     current_order = Orders.objects.filter(id_Orders=id_order)
@@ -351,6 +328,8 @@ def select_car(request, id_order):
     return render(request, 'base/edit/orders/change_car.html', {"Cars": cars, "current_car": current_car,
                                                                 "current_order":id_order})
 
+
+# Сменить машину для заказа на выбранную
 def change_car(request):
     if request.method == "POST":  # Если из формы вызывается метод post
         new_car = Cars.objects.get(id_Car=request.POST.get("car_id"))
@@ -360,11 +339,13 @@ def change_car(request):
     return render(request, 'base/View_Order.html', {"Orders": orders})
 
 
+# Показать форму изменения параметров машины
 def select_new_car_brand(request, id_car):
     cars = Cars.objects.filter(id_Car=id_car)
     return render(request, 'base/edit/car/brand.html', {"Car": cars})
 
 
+# Изменить параметры машины
 def change_car_params(request, id_car):
     if request.method == "POST":  # Если из формы вызывается метод post
         Cars.objects.filter(id_Car=id_car).update(
@@ -397,11 +378,13 @@ def change_car_params(request, id_car):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Показать форму изменения параметров объекта
 def select_new_obj_params(request, id_obj):
     objs = Objectss.objects.filter(id_Objectss=id_obj)
     return render(request, 'base/edit/objects/obj.html', {"obj": objs})
 
 
+# Изменить параметры объекта
 def change_obj_params(request, id_obj):
     if request.method == "POST":  # Если из формы вызывается метод post
         Objectss.objects.filter(id_Objectss=id_obj).update(
@@ -422,11 +405,12 @@ def change_obj_params(request, id_obj):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Показать форму изменения параметров места доставки
 def select_new_pl_params(request, id_pl):
     pls = Places.objects.filter(id_Places=id_pl)
     return render(request, 'base/edit/places/pl.html', {"pl": pls})
 
-
+# Изменить параметры места доставки
 def change_pl_params(request, id_pl):
     if request.method == "POST":  # Если из формы вызывается метод post
         Places.objects.filter(id_Places=id_pl).update(
@@ -446,11 +430,13 @@ def change_pl_params(request, id_pl):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+# Показать форму изменения параметров заказа
 def select_new_ord_params(request, id_ord):
     ords = Orders.objects.filter(id_Orders=id_ord)
     return render(request, 'base/edit/orders/change_ord.html', {"ords": ords})
 
 
+# Изменить параметры заказа
 def change_ord_params(request, id_ord):
     if request.method == "POST":  # Если из формы вызывается метод post
         dep_time = request.POST.get("new_dep_time")
@@ -464,22 +450,4 @@ def change_ord_params(request, id_ord):
             Orders.objects.filter(id_Orders=id_ord).update(
                 date_completion=comp_date+" "+comp_time)  # Обновление Даты завершения отправки заказа
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-# def create_review(request):  # Занесение отзыва в БД
-    # if request.method == "POST":  # Если из формы вызывается метод post
-        # user = Reviews()  # Создаётся новый объект класса
-        # user.name = request.POST.get("name")
-        # user.message = request.POST.get("message")
-        # user.email = request.POST.get("email")
-        # user.mark = request.POST.get("mark")
-        # user.date = datetime.datetime.utcnow().replace(tzinfo=utc)  # Время публикации
-        # user.save()
-    # return HttpResponseRedirect("/feedback")
-
-
-# def feedback(request):  # получение отзывов из бд
-    # user = Reviews.objects.all().order_by("-date")  # Сортировка результата выборки по дате
-    # avgmark = Reviews.objects.aggregate(average_mark=round_Mark(Avg('mark'), 2))
-    # return render(request, "feedback.html", {"user": user, "avgmark": avgmark})
 
