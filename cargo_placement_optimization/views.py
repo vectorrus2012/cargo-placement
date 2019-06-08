@@ -448,4 +448,3 @@ def change_ord_params(request, id_ord):
             Orders.objects.filter(id_Orders=id_ord).update(
                 date_completion=comp_date+" "+comp_time)  # Обновление Даты завершения отправки заказа
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
