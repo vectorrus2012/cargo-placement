@@ -1,7 +1,6 @@
 {% extends "wrapper.html" %}
 {% block content %}
 {% if user.is_authenticated %}
-{% csrf_token %}
 <p align="center">Текущая выбранная машина:</p>
 <table border="1" bordercolor="RoyalBlue" style="margin: auto">
     <tr>
