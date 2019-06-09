@@ -321,18 +321,18 @@ def delete_object_for_order(request, id_obj_for_order):
 # Список машин для выбора в заказе
 def select_car(request, id_order):
     cars = Cars.objects.all().order_by("-date_add")  # Сортировка результата выборки по дате
-    current_order = Orders.objects.filter(id_Orders=id_order)
-    current_car = Cars.objects.filter(id_Car=current_order[0].id_Orders)
+    current_order = Orders.objects.get(id_Orders=id_order)
+    current_car = Cars.objects.get(id_Car=current_order.id_car)
     return render(request, 'base/edit/orders/change_car.html', {"Cars": cars, "current_car": current_car,
                                                                 "current_order":id_order})
 
 
 # Сменить машину для заказа на выбранную
-def change_car(request):
+def change_car(request, id_order):
     if request.method == "POST":  # Если из формы вызывается метод post
         new_car = Cars.objects.get(id_Car=request.POST.get("car_id"))
-        # Обновление используемой машины в договор
-        Orders.objects.filter(id_Orders=request.POST.get("ord_id")).update(id_car=new_car.id_Car)
+        # Обновление используемой машины в заказе
+        Orders.objects.filter(id_Orders=id_order).update(id_car=new_car.id_Car)
     orders = Orders.objects.all().order_by("-date_add")  # Сортировка результата выборки по дате
     return render(request, 'base/View_Order.html', {"Orders": orders})
 
@@ -350,7 +350,7 @@ def change_car_params(request, id_car):
             Brand=request.POST.get("new_brand"))  # Обновление брэнда машины
         Cars.objects.filter(id_Car=id_car).update(
             Model=request.POST.get("new_model"))  # Обновление модели машины
-        try:  # Если строка является числом, перевести в строку
+        try:  # Если строка является числом, перевести в число
             new_tr_weight = float(request.POST.get("new_trailer_weight").replace(',', '.'))
             Cars.objects.filter(id_Car=id_car).update(
                 trailer_weight=new_tr_weight)  # Обновление веса прицепа

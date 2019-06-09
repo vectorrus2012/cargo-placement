@@ -16,14 +16,14 @@
     </tr>
         <form role="form" method="POST" action="change_car">
             {% csrf_token %}
-            <td><input type="text" name="ord_id" readonly value = {{current_order}} ></td>
-        <td>{{Cars.0.id_Car}}</td>
-        <td>{{Cars.0.Brand}}</td>
-        <td>{{Cars.0.Model}}</td>
-        <td>{{Cars.0.maxWeight}}</td>
-        <td>{{Cars.0.trailer_weight}}</td> 
-        <td>{{Cars.0.trailer_ax_count}}</td> 
-        <td>{{Cars.0.car_ax_count}}</td>
+            <td><output name="ord_id">{{current_order}}</output></td>
+            <td>{{current_car.id_Car}}</td>
+            <td>{{current_car.Brand}}</td>
+            <td>{{current_car.Model}}</td>
+            <td>{{current_car.maxWeight}}</td>
+            <td>{{current_car.trailer_weight}}</td> 
+            <td>{{current_car.trailer_ax_count}}</td> 
+            <td>{{current_car.car_ax_count}}</td>
 </table>
 <hr>
 <p align="center">Имеющиеся машины:</p>
@@ -49,10 +49,10 @@
         <td>{{car_info.car_ax_count}}</td>
     </tr>
     {% endfor %}
-</form>
 </table>
 <p align="Right">
 <input type="submit" class ="btn btn-success" value="Изменить машину"></p>
+</form>
 {% else %}
     <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
 {% endif %}
