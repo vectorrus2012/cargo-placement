@@ -244,7 +244,7 @@ def add_car(request):
         cars.Model = request.POST.get("Model")
         cars.maxWeight = request.POST.get("maxWeight")
         cars.trailer_weight = request.POST.get("trailer_weight")
-        cars.car_ax_count = request.POST.get("trailer_ax_count")
+        cars.trailer_ax_count = request.POST.get("trailer_ax_count")
         cars.car_ax_count = request.POST.get("car_ax_count")
         cars.date_add = datetime.datetime.utcnow().replace(tzinfo=utc)  # Время добавления
         cars.save()
@@ -254,9 +254,9 @@ def add_car(request):
 # Добавление заказов
 def add_order(request):
     if request.method == "POST":  # Если из формы вызывается метод post
-        id_car = request.POST.get("id")
+        id_car = request.POST.get("id_car")
         exist = False
-        if Cars.objects.filter(id_Car=id_car).count() != 0:  # Если машина существует
+        if len(Cars.objects.filter(id_Car=id_car)) != 0:  # Если машина существует
             order = Orders()  # Создаётся новый объект класса
             order.id_Orders = request.POST.get("id")
             order.id_car = Cars.objects.get(id_Car=id_car)
