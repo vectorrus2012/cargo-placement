@@ -1,5 +1,4 @@
 ﻿from django.contrib import admin
-
 from cargo_placement_optimization.models import Cars, Orders, Objectss, Places, ObjectsForOrders
 
 # Регистрация таблиц в администраторской панели
