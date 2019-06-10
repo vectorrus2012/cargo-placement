@@ -276,15 +276,25 @@ def add_order(request):
 # Добавление объектов для заказа
 def add_objects_for_order(request):
     if request.method == "POST":  # Если из формы вызывается метод post
-        obj_order = ObjectsForOrders()  # Создаётся новый объект класса
-        obj_order.id_ObjectsForOrders = request.POST.get("id")
-        obj_order.id_object = Objectss.objects.get(id_Objectss=request.POST.get("id_obj"))
-        obj_order.order_placement = request.POST.get("order_placement")
-        obj_order.id_order = Orders.objects.get(id_Orders=request.POST.get("id_order"))  # Исправить
-        obj_order.id_place_to_delivery = Places.objects.get(id_Places=request.POST.get("id_place_delievery"))
-        obj_order.count = request.POST.get("count")
-        obj_order.date_add = datetime.datetime.utcnow().replace(tzinfo=utc)  # Время добавления
-        obj_order.save()
+        k = 0
+        if Objectss.objects.filter(id_Objectss=request.POST.get("id_obj")).count() != 0:
+            k += 1
+        if Orders.objects.filter(id_Orders=request.POST.get("id_order")).count() != 0:
+            k += 1
+        if Places.objects.filter(id_Places=request.POST.get("id_place_delievery")).count() != 0:
+            k += 1
+        if k == 3:
+            obj_order = ObjectsForOrders()  # Создаётся новый объект класса
+            obj_order.id_ObjectsForOrders = request.POST.get("id")
+            obj_order.id_object = Objectss.objects.get(id_Objectss=request.POST.get("id_obj"))
+            obj_order.order_placement = request.POST.get("order_placement")
+            obj_order.id_order = Orders.objects.get(id_Orders=request.POST.get("id_order")) 
+            obj_order.id_place_to_delivery = Places.objects.get(id_Places=request.POST.get("id_place_delievery"))
+            obj_order.count = request.POST.get("count")
+            obj_order.date_add = datetime.datetime.utcnow().replace(tzinfo=utc)  # Время добавления
+            obj_order.save()
+        else:
+            return render(request, 'error/data.html') 
     return render(request, 'base/add_obj_for_order.html')
 
 
