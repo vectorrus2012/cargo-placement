@@ -4,53 +4,48 @@
 {% csrf_token %}
 <!-- Страница для составления карты расположения -->
 {% if user.is_authenticated %}
-<table>
-    <td>
-<table style = "border-style:hidden" border="1">
-        <td> </td>
-        <td style = "border-style:hidden" align="center"; colspan={{up_left_objects_ids|length|add:"+1"}}>Левая часть</td>
-        <td>            </td>
-        <td style = "border-style:hidden" align="center"; colspan={{up_right_objects_ids|length|add:"+1"}}>Правая часть</td>
+<!--<p align = "center"> 
+    Погруженные объекты  </p> -->
+<table border="1">
+  <tr><td rowspan="4" style = "background: none; border-style:hidden"><img src="/static/Images/palett-fur.png"></td>
+  <!-- <td>Места</td> -->
+  <td style = "background: lightcyan">
+    Правый верхний ряд  
+  </td>
+  {% for obj_id in up_right_objects_ids %}
+  <td style = "background: lightcyan"> 
+      {{obj_id}}
+    </td>
+  {% endfor %} 
+  <tr>
+  <td style = "background: white">
+    Правый нижний ряд
+  </td> 
+  {% for obj_id in down_right_objects_ids %}
+  <td style = "background: white">
+      {{obj_id}}
+  </td>
+  {% endfor %} 
+  <tr>
+      <td style = "background: lightgoldenrodyellow">
+          Левый верхний ряд  
+        </td>
+        {% for obj_id in up_left_objects_ids %}
+        <td style = "background: lightgoldenrodyellow"> 
+            {{obj_id}}
+          </td>
+        {% endfor %} 
         <tr>
-            <td rowspan="2" style = "background: none; border-style:hidden"><img src="/static/Images/palett-fur.png"></td>
-            <td style = "background: lightsteelblue">
-                верхний ряд  
-            </td>
-                    {% for obj_id in up_left_objects_ids %}
-                        <td style = "background: lightsteelblue"> 
-                        {{obj_id}}
-                        </td>
-                    {% endfor %} 
-                        <td style = "border-top-style:hidden; border-bottom-style: hidden">      </td>
-                        <td style = "background: lightcyan">
-                                верхний ряд  
-                              </td>
-                              {% for obj_id in up_right_objects_ids %}
-                              <td style = "background: lightcyan"> 
-                                  {{obj_id}}
-                                </td>
-                              {% endfor %} 
-                              <tr>
-                                    <td style = "background: lightgoldenrodyellow">
-                                            нижний ряд
-                                          </td> 
-                                          {% for obj_id in down_left_objects_ids %}
-                                          <td style = "background: lightgoldenrodyellow">
-                                              {{obj_id}}
-                                          </td>
-                                          {% endfor %}     
-                                <td style = "border-top-style:hidden; border-bottom-style: hidden"></td>
-                              <td style = "background: white">
-                                    нижний ряд
-                              </td> 
-                              {% for obj_id in down_right_objects_ids %}
-                              <td style = "background: white">
-                                  {{obj_id}}
-                              </td>
-                              {% endfor %}  
-    </table>
-</td>
-</table>
+        <td style = "background: lightsteelblue">
+          Левый нижний ряд
+        </td> 
+        {% for obj_id in down_left_objects_ids %}
+        <td style = "background: lightsteelblue">
+            {{obj_id}}
+        </td>
+        {% endfor %}     
+  </tr>
+</table> 
 <hr>
 <p align="center">
   Информация о погружаемых объектах:
@@ -76,56 +71,6 @@
       <td style = "background: white">
           Номер склада
       </td> 
-      {% for obj in obj_info_up_left %}
-      <tr style = "background: lightsteelblue">
-        <td>
-            {{obj.id_Objectss}}
-        </td>
-        <td>
-            {{obj.weight}}
-        </td>
-        <td>
-            {{obj.name}}
-        </td>
-        <td>
-            {{obj.manufacturer}}
-        </td>
-        <td>
-            {{obj.consignment}}
-        </td>
-        <td>
-            {{obj.base_price}}
-        </td>    
-        <td>
-            {{obj.stock_num}}
-        </td>       
-      </tr>
-    {% endfor %} 
-    {% for obj in obj_info_down_left %}
-    <tr style = "background: lightgoldenrodyellow">
-      <td>
-          {{obj.id_Objectss}}
-      </td>
-      <td>
-          {{obj.weight}}
-      </td>
-      <td>
-          {{obj.name}}
-      </td>
-      <td>
-          {{obj.manufacturer}}
-      </td>
-      <td>
-          {{obj.consignment}}
-      </td>
-      <td>
-          {{obj.base_price}}
-      </td>    
-      <td>
-          {{obj.stock_num}}
-      </td>       
-    </tr>
-  {% endfor %} 
       {% for obj in obj_info_up_right %}
         <tr style = "background: lightcyan">
           <td>
@@ -176,6 +121,56 @@
           </td>       
         </tr>
       {% endfor %} 
+      {% for obj in obj_info_up_left %}
+      <tr style = "background: lightgoldenrodyellow">
+        <td>
+            {{obj.id_Objectss}}
+        </td>
+        <td>
+            {{obj.weight}}
+        </td>
+        <td>
+            {{obj.name}}
+        </td>
+        <td>
+            {{obj.manufacturer}}
+        </td>
+        <td>
+            {{obj.consignment}}
+        </td>
+        <td>
+            {{obj.base_price}}
+        </td>    
+        <td>
+            {{obj.stock_num}}
+        </td>       
+      </tr>
+    {% endfor %} 
+    {% for obj in obj_info_down_left %}
+    <tr style = "background: lightsteelblue">
+      <td>
+          {{obj.id_Objectss}}
+      </td>
+      <td>
+          {{obj.weight}}
+      </td>
+      <td>
+          {{obj.name}}
+      </td>
+      <td>
+          {{obj.manufacturer}}
+      </td>
+      <td>
+          {{obj.consignment}}
+      </td>
+      <td>
+          {{obj.base_price}}
+      </td>    
+      <td>
+          {{obj.stock_num}}
+      </td>       
+    </tr>
+  {% endfor %} 
   </table> 
 <p align="center">
       Информация о непогружаеных объектах:
