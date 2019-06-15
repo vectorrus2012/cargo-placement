@@ -1,6 +1,6 @@
 {% extends "wrapper.html" %}
 {% block content %}
-
+{% if user.is_authenticated %}
 <table border="1">
         <tr>
          <th>Идентификатор заказа</th>
@@ -18,6 +18,8 @@
             <td><a href= {% url 'del_order' id_order=order_info.id_Orders %}><i class="fas fa-trash"></i></a></td></tr>
         {% endfor %}
 </table>
-<hr>
+{% else %}
+    <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
+{% endif %}
 
 {% endblock %}
