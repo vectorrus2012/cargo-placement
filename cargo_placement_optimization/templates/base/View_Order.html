@@ -15,7 +15,10 @@
             <td><a href= {% url 'select_car' id_order=order_info.id_Orders %}>{{order_info.id_car}} <i class="fas fa-car"></i></a></td>
             <td>{{order_info.date_departure}}</td>
             <td>{{order_info.date_completion}}</td>
-            <td><a href= {% url 'del_order' id_order=order_info.id_Orders %}><i class="fas fa-trash"></i></a></td></tr>
+            <form onSubmit='return confirm("Удалить из базы автомобиль ".join(place_info.name).join("?"));'>
+                <td><a href= {% url 'del_order' id_order=order_info.id_Orders %}><i class="fas fa-trash"></i></a>
+            </form> 
+            <tr>
         {% endfor %}
 </table>
 {% else %}

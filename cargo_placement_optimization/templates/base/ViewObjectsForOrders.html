@@ -18,8 +18,12 @@
            <td>{{obj.order_placement}}</td>
            <td>{{obj.id_order.id_Orders}}</td>
            <td>{{obj.id_place_to_delivery.id_Places}}</td>
-           <td>{{obj.count}}</td>     
-           <td><a href= {% url 'del_obj_for_order' id_obj_for_order=obj.id_ObjectsForOrders %}><i class="fas fa-trash"></i></a></tr>
+           <td>{{obj.count}}</td>  
+           <td>
+            <form onSubmit='return confirm("Удалить из базы объект для доставки ".join(place_info.name).join("?"));'>
+                <a href= {% url 'del_obj_for_order' id_obj_for_order=obj.id_ObjectsForOrders %}><i class="fas fa-trash"></i></a>
+            </form>
+        <tr>   
        {% endfor %}   
  </table>
  {% else %}

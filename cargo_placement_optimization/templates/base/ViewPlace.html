@@ -24,7 +24,7 @@
         <td>{{place_info.street}}</td>
         <td>{{place_info.link}}</td>     
         <td>
-            <form onSubmit='return confirm("Удалить из базы объект".join(place_info.name).join("?"));'>
+            <form onSubmit='return confirm("Удалить из базы место доставки ".join(place_info.name).join("?"));'>
                     <a href= {% url 'del_place' id_place=place_info.id_Places %}><i class="fas fa-trash"></i></a>
             </form>
         <tr>

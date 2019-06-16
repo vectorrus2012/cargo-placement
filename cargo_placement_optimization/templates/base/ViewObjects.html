@@ -21,10 +21,11 @@
         <td>{{obj_info.weight}}</td>
         <td>{{obj_info.consignment}}</td>
         <td>{{obj_info.base_price}}</td>
-        <td>{{obj_info.stock_num}}</td>     
-        <td>
-            <a href= {% url 'del_obj' id_obj=obj_info.id_Objectss %}><i class="fas fa-trash"></i></a>
-                </tr>
+        <td>{{obj_info.stock_num}}</td>  
+        <form onSubmit='return confirm("Удалить из базы объект ".join(place_info.name).join("?"));'>
+            <td><a href= {% url 'del_obj' id_obj=obj_info.id_Objectss %}><i class="fas fa-trash"></i></a></td>
+        </form>   
+        <tr>      
     {% endfor %}
     </table>
     <hr>

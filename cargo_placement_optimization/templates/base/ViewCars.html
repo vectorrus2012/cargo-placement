@@ -22,7 +22,10 @@
         <td>{{car_info.trailer_weight}}</td>
         <td>{{car_info.trailer_ax_count}}</td>
         <td>{{car_info.car_ax_count}}</td>   
-        <td><a href= {% url 'del_car' id_car=car_info.id_Car %}><i class="fas fa-trash"></i></a></tr>
+        <form onSubmit='return confirm("Удалить из базы автомобиль ".join(place_info.name).join("?"));'>
+            <td><a href= {% url 'del_car' id_car=car_info.id_Car %}><i class="fas fa-trash"></i></a>
+        </form> 
+        <tr>
     {% endfor %}
     </table>
     <hr>
