@@ -24,7 +24,7 @@
         <td>{{place_info.street}}</td>
         <td>{{place_info.link}}</td>     
         <td>
-            <a href= {% url 'del_place' id_place=place_info.id_Places %} onclick="return confirm('Удалить объект '+'из базы?')"><i class="fas fa-trash"></i></a>
+            <a href= {% url 'del_place' id_place=place_info.id_Places %} onclick="return confirm('Удалить объект '+'{{place_info.name}}'+' из базы?')"><i class="fas fa-trash"></i></a>
         <tr>
     {% endfor %}
     </table>

@@ -22,7 +22,7 @@
         <td>{{car_info.trailer_weight}}</td>
         <td>{{car_info.trailer_ax_count}}</td>
         <td>{{car_info.car_ax_count}}</td>   
-            <td><a href= {% url 'del_car' id_car=car_info.id_Car %} onclick="return confirm('Удалить объект '+'из базы?')"><i class="fas fa-trash"></i></a>
+            <td><a href= {% url 'del_car' id_car=car_info.id_Car %} onclick="return confirm('Удалить объект '+'{{car_info.Brand}} '+'{{car_info.Model}}'+' из базы?')"><i class="fas fa-trash"></i></a>
         <tr>
     {% endfor %}
     </table>

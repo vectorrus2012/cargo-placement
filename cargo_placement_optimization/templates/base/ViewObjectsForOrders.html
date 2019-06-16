@@ -20,7 +20,7 @@
            <td>{{obj.id_place_to_delivery.id_Places}}</td>
            <td>{{obj.count}}</td>  
            <td>
-                <a href= {% url 'del_obj_for_order' id_obj_for_order=obj.id_ObjectsForOrders %} onclick="return confirm('Удалить объект '+'из базы?')"><i class="fas fa-trash"></i></a>
+                <a href= {% url 'del_obj_for_order' id_obj_for_order=obj.id_ObjectsForOrders %} onclick="return confirm('Удалить объект '+'{{obj.id_object.id_Objectss}}'+' из погрузки?')"><i class="fas fa-trash"></i></a>
         <tr>   
        {% endfor %}   
  </table>

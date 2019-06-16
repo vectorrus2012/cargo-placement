@@ -25,7 +25,7 @@
         <td>{{obj_info.consignment}}</td>
         <td>{{obj_info.base_price}}</td>
         <td>{{obj_info.stock_num}}</td>  
-            <td><a href= {% url 'del_obj' id_obj=obj_info.id_Objectss %} onclick="return confirm('Удалить объект '+'из базы?')"><i class="fas fa-trash"></i></a></td>    
+            <td><a href= {% url 'del_obj' id_obj=obj_info.id_Objectss %} onclick="return confirm('Удалить объект '+'{{obj_info.name}}'+' из базы?')"><i class="fas fa-trash"></i></a></td>    
     {% endfor %}
     </table>
     <hr>
