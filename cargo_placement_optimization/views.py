@@ -397,10 +397,10 @@ def change_obj_for_order_params(request, id_obj_for_order):
     if request.method == "POST":  # Если из формы вызывается метод post
         try:  # Если строка является числом, перевести в строку
             new_order_placement = int(request.POST.get("new_order_placement"))
-            ObjectsForOrders.objects.filter(id_Objectss=id_obj_for_order).update(
+            ObjectsForOrders.objects.filter(id_ObjectsForOrders=id_obj_for_order).update(
                 order_placement=new_order_placement)  # Обновление порядка погрузки
             new_count = int(request.POST.get("new_count"))
-            ObjectsForOrders.objects.filter(id_Objectss=id_obj_for_order).update(
+            ObjectsForOrders.objects.filter(id_ObjectsForOrders=id_obj_for_order).update(
                 count=new_count)  # Обновление количества объектов
         finally:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
