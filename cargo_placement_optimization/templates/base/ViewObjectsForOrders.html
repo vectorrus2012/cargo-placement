@@ -1,5 +1,6 @@
 ﻿{% extends "wrapper.html" %}
 {% block content %}
+<title>Объекты для доставки</title>
 {% if user.is_authenticated %}
 <table border="1">
     <tr>
@@ -13,7 +14,7 @@
    </tr>
    <tr>
        {% for obj in obj_for_order %}
-           <td>{{obj.id_ObjectsForOrders}}</td>
+       <td><a href= {% url 'select_new_obj_for_order_params' id_obj_for_order=obj.id_object.id_Objectss %}>{{obj.id_object.id_Objectss}} <i class="fas fa-sliders-h"></i></a></td> 
            <td>{{obj.id_object.id_Objectss}}</td>
            <td>{{obj.order_placement}}</td>
            <td>{{obj.id_order.id_Orders}}</td>

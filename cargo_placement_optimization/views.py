@@ -100,7 +100,7 @@ def map_create(request):
             weight_load_max = (max_weight - (car.maxWeight + car.trailer_weight))*1000  # Максимально допустимый вес (тонны)
             reloaded = True  # Изначально True для активации цикла. Используется для сообщения о перегрузе
             obj_ids = []
-            while reloaded == True:
+            while (reloaded == True) and (len(objects_id) > 0):
                 # Вызов функции оптимизации из внешнего модуля
                 obj_ids = solve_knapsack(optimise_method, objects_id, objects_weights, weight_load_max, objects_price)
                 k = 0
@@ -116,7 +116,7 @@ def map_create(request):
                                 packed_objs_weight)  # Проверка перегруза
                 reloaded = False  # Изначально False для выхода из цикла, если нет перегруза
                 for i in range(3):  # Получение процентов перегруза по осям (без общей нагрузки)
-                    if res[i] >= max_load + ((max_load*2)/100):  # Если перегруз больше двух процентов
+                    if res[i] >= max_load + ((max_load*2)/100) :  # Если перегруз больше двух процентов
                         reloaded = True
                         del objects_id[-1] # Удалить последний непомещённый объект
                         del objects_order[-1] # Удалить порядок погрузки этого объекта
@@ -382,6 +382,26 @@ def change_car_params(request, id_car):
             new_weight = float(request.POST.get("new_max_weight").replace(',', '.'))
             Cars.objects.filter(id_Car=id_car).update(
                 maxWeight=new_weight)  # Обновление веса машины
+        finally:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+# Показать форму изменения параметров погружаемого объекта
+def select_new_obj_for_order_params(request, id_obj_for_order):
+    objs = ObjectsForOrders.objects.filter(id_ObjectsForOrders=id_obj_for_order)
+    return render(request, 'base/edit/obj_for_orders/change_obj.html', {"obj": objs})
+
+
+# Изменить параметры погружаемого объекта
+def change_obj_for_order_params(request, id_obj_for_order):
+    if request.method == "POST":  # Если из формы вызывается метод post
+        try:  # Если строка является числом, перевести в строку
+            new_order_placement = int(request.POST.get("new_order_placement"))
+            ObjectsForOrders.objects.filter(id_Objectss=id_obj_for_order).update(
+                order_placement=new_order_placement)  # Обновление порядка погрузки
+            new_count = int(request.POST.get("new_count"))
+            ObjectsForOrders.objects.filter(id_Objectss=id_obj_for_order).update(
+                count=new_count)  # Обновление количества объектов
         finally:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

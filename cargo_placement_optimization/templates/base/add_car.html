@@ -1,7 +1,7 @@
 {% extends "wrapper.html" %}
-
+<title>Добавление автомобиля</title>
 {% block content %}
-<!-- Страница для добавления объектов -->
+<!-- Страница для добавления автомобилей-->
 {% if user.is_authenticated %}
 <form role="form" method="POST" action="add_car">
   {% csrf_token %}
@@ -14,9 +14,9 @@
     <textarea class="form-control" name="Model" id="exampleFormControlTextarea1" required rows="2" placeholder="Введите модель автомобиля" required></textarea>
     <p><p>
     <label for="maxWeight">Вес машинны(тонны):</label>
-    <input type="number" name="maxWeight" min="1" max="99" step="any" required>  
+    <input type="number" name="maxWeight" min="1" max="15" step="any" required>  
     <label for="trailer_weight">Вес прицепа(тонны):</label>
-    <input type="number" name="trailer_weight" min="1" max="99" step="any" required>   
+    <input type="number" name="trailer_weight" min="1" max="15" step="any" required>   
     <p><p>
     <label for="trailer_ax_count">Количество осей прицепа:</label>
     <input type="number" name="trailer_ax_count" min="2" max="3" required>  

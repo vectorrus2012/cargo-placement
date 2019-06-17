@@ -2,6 +2,7 @@
 
 {% block content %}
 <!-- Страница для выбора параметров составления карты расположения -->
+<title>Формирование карты погрузки</title>
 {% if user.is_authenticated %}
 <form role="form" method="POST" action="map_create">
   {% csrf_token %}

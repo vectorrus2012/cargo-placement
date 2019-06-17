@@ -19,6 +19,9 @@ urlpatterns = [
     path('map_create', views.map_create),  # Страница с результатами
     path('base/View_objects_for_order', views.show_objects_for_order),  # Показать объекты для заказа
     path('base/add_objects_for_order', views.add_objects_for_order),  # Добавить объект для заказа
+     url(r'^base/select_new_obj_for_order_params/(?P<id_obj_for_order>\d+)/$', views.select_new_obj_for_order_params, name='select_new_obj_for_order_params'),
+    url(r'^base/select_new_obj_for_order_params/(?P<id_obj_for_order>\d+)/change_obj_for_order_params$', views.change_obj_for_order_params,
+        name='change_obj_for_order_params'),   
     url(r'^base/select_new_ord_params/(?P<id_ord>\d+)/$', views.select_new_ord_params, name='select_new_ord_params'),
     url(r'^base/select_new_ord_params/(?P<id_ord>\d+)/change_ord_params', views.change_ord_params,
         name='change_ord_params'),
@@ -26,7 +29,7 @@ urlpatterns = [
     url(r'^base/select_new_pl_params/(?P<id_pl>\d+)/change_pl_params', views.change_pl_params,
         name='change_pl_params'),
     url(r'^base/select_new_obj_params/(?P<id_obj>\d+)/$', views.select_new_obj_params, name='select_new_obj_params'),
-    url(r'^base/select_new_obj_params/(?P<id_obj>\d+)/change_car_params$', views.change_obj_params,
+    url(r'^base/select_new_obj_params/(?P<id_obj>\d+)/change_obj_params$', views.change_obj_params,
         name='change_obj_params'),
     url(r'^base/select_new_car_brand/(?P<id_car>\d+)/$', views.select_new_car_brand, name='select_new_car_brand'),
     url(r'^base/select_new_car_brand/(?P<id_car>\d+)/change_car_params$', views.change_car_params, name='change_car_params'),

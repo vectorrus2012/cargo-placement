@@ -36,6 +36,7 @@
 .mainInfo { /* Середина сайта */
    background-color: 	#E4D3BA; /* Цвет фона */
 }
+/* Кнопка авторизации */
 .enterButton {
    position: right;
    float: right;

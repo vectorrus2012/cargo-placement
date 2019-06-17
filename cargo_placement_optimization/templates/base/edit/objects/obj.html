@@ -1,5 +1,6 @@
 {% extends "wrapper.html" %}
 {% block content %}
+<title>Изменение параметров объекта</title>
 {% if user.is_authenticated %}
 {% csrf_token %}
 <p align="center">Текущий выбранный предмет:</p>
@@ -13,7 +14,7 @@
      <th>Цена</th>
      <th>Номер склада</th>
     </tr>
-        <form role="form" method="POST" action="change_car_params">
+        <form role="form" method="POST" action="change_obj_params">
             {% csrf_token %}
         <td>{{obj.0.id_Objectss}}</td>
         <td>{{obj.0.weight}}</td>

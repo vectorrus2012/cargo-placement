@@ -1,7 +1,7 @@
 {% extends "wrapper.html" %}
-
 {% block content %}
-<!-- Страница для добавления объектов -->
+<title>Добавление мест доставки</title>
+<!-- Страница для добавления мест доставки-->
 {% if user.is_authenticated %}
 <form role="form" method="POST" action="add_place">
   {% csrf_token %}

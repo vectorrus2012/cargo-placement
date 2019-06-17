@@ -29,7 +29,10 @@ def solve_knapsack(method, objects_id, weights, every_trailer_axis, objects_pric
             flat_list[j].append(weights[i])  # Заполнение списка весов
     capacities = [every_trailer_axis]  # Максимальная вместимость
     if method == "Weight":  # Если оптимизация по весу
-        values = flat_list[0]  # ценность не учитывается. У всех объектов одинаковая
+        leng = len(flat_list[0])
+        values = []  
+        for i in range(leng):
+            values.append(0)  # ценность не учитывается. У всех объектов одинаковая
         # Иннициализация алгоритма решения для загрузки максимальным весом
         solver = pywrapknapsack_solver.KnapsackSolver(
             pywrapknapsack_solver.KnapsackSolver.

@@ -1,58 +1,47 @@
 {% extends "wrapper.html" %}
 {% block content %}
+<title>Изменение параметров объекта для заказа</title>
 {% if user.is_authenticated %}
-{% csrf_token %}
-<p align="center">Текущая выбранная машина:</p>
+<p align="center">Текущий выбранный объект для погрузки</p>
 <table border="1" bordercolor="RoyalBlue" style="margin: auto">
     <tr>
-     <th>Идентификатор договора</th>
-     <th>Идентификатор Машины</th>
-     <th>Брэнд машины</th>
-     <th>Модель</th>
-     <th>Вес машины(тонны)</th>
-     <th>Вес прицепа(тонны)</th>
-     <th>Количество осей прицепа</th>
-     <th>Количество осей машины</th>
+        <th>Идентификатор перевозки объекта для заказа</th>
+        <th>Идентификатор объекта</th>
+        <th>Порядок погрузки</th>
+        <th>Идентификатор заказа</th>
+        <th>Идентификатор места доставки объекта</th>
+        <th>Количиство объектов для доставки</th>
     </tr>
-        <form role="form" method="POST" action="change_car">
-            {% csrf_token %}
-            <td><input type="text" name="ord_id" readonly value = {{current_order}} ></td>
-        <td>{{Cars.0.id_Car}}</td>
-        <td>{{Cars.0.Brand}}</td>
-        <td>{{Cars.0.Model}}</td>
-        <td>{{Cars.0.maxWeight}}</td>
-        <td>{{Cars.0.trailer_weight}}</td> 
-        <td>{{Cars.0.trailer_ax_count}}</td> 
-        <td>{{Cars.0.car_ax_count}}</td>
+            {% csrf_token %}       
+            <td>{{obj.0.id_ObjectsForOrders}}</td>
+            <td>{{obj.0.id_object.id_Objectss}}</td>
+            <td>{{obj.0.order_placement}}</td>
+            <td>{{obj.0.id_order.id_Orders}}</td>
+            <td>{{obj.0.id_place_to_delivery.id_Places}}</td>
+            <td>{{obj.0.count}}</td>
 </table>
 <hr>
-<p align="center">Имеющиеся машины:</p>
+<form role="form" method="POST" action="change_obj_for_order_params">
+{% csrf_token %}
 <table border="1">
         <tr>
-         <th>Идентификатор</th>
-         <th>Брэнд машины</th>
-         <th>Модель</th>
-         <th>Вес машины(тонны_</th>
-         <th>Вес прицепа(тонны)</th>
-         <th>Количество осей прицепа</th>
-         <th>Количество осей машины</th>
+         <th>Порядок погрузки</th>
+         <th>Количиство объектов для доставки</th>
         </tr>
-    {% for car_info in Cars %} 
+    {% for obj in obj %} 
         <tr>
         <td>
-            <input name="car_id" type="radio" value={{car_info.id_Car}} checked>{{car_info.id_Car}} </td>
-        <td>{{car_info.Brand}}</td>
-        <td>{{car_info.Model}}</td>
-        <td>{{car_info.maxWeight}}</td> 
-        <td>{{car_info.trailer_weight}}</td> 
-        <td>{{car_info.trailer_ax_count}}</td> 
-        <td>{{car_info.car_ax_count}}</td>
+            <input type="number" name="new_order_placement" min = "1" max="99" value={{obj.order_placement}} required>     
+        </td>
+        <td>
+            <input type="number" name="new_count" min = "1" max="99" value={{obj.count}} required>     
+        </td>
     </tr>
     {% endfor %}
-</form>
 </table>
 <p align="Right">
-<input type="submit" class ="btn btn-success" value="Изменить машину"></p>
+<input type="submit" class ="btn btn-success" value="Изменить параметры погружаемого объекта"></p>
+</form>
 {% else %}
     <center><a href= "/login/">Авторизуйтесь, Гость</a></center>
 {% endif %}

@@ -1,5 +1,6 @@
 {% extends "wrapper.html" %}
 {% block content %}
+<title>Изменение параметров заказа</title>
 {% if user.is_authenticated %}
 {% csrf_token %}
 <p align="center">Текущий выбранный заказ:</p>

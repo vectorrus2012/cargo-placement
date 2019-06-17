@@ -1,9 +1,7 @@
 {% extends "wrapper.html" %}
-
 {% block content %}
-<script src="https://momentjs.com/downloads/moment.js"></script>
-
-<!-- Страница для добавления объектов -->
+<title>Добавление заказа</title>
+<!-- Страница для добавления заказов -->
 {% if user.is_authenticated %}
 <form role="form" method="POST" action="add_order">
   {% csrf_token %}

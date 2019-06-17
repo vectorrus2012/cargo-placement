@@ -1,5 +1,6 @@
 {% extends "wrapper.html" %}
 {% block content %}
+<title>Изменение параметров машин</title>
 {% if user.is_authenticated %}
 {% csrf_token %}
 <p align="center">Текущая выбранная машина:</p>
@@ -42,10 +43,10 @@
             <input type="text" name="new_model" value={{car_info.Model}} required>
         </td>
         <td>
-            <input type="number" name="new_max_weight" min="1" max="99" step="any" required>
+            <input type="number" name="new_max_weight" min="1" max="15" step="any" required>
         </td>
         <td>
-            <input type="number" name="new_trailer_weight" min="1" max="99" step="any" required> 
+            <input type="number" name="new_trailer_weight" min="1" max="15" step="any" required> 
         </td>
         <td>
             <input type="number" name="new_trailer_ax_count" min="2" max="3" step="any" required>
