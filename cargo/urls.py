@@ -5,6 +5,7 @@ from django.urls import path
 
 urlpatterns = [
     path('information', views.information),  # Информация о сервисе
+    path('help', views.help),  # Справка
     path('admin/', admin.site.urls),  # Админка
     path('about/contact', views.contact),  # Контакты
     path('base/objects', views.show_objects),  # Просмотр объектов

@@ -50,6 +50,10 @@ def contact(request):
     return render(request, 'contact_information.html')
 
 
+# Показать страницу со справкой
+def help(request):
+    return render(request, 'help.html')
+
 # Показать страницу отправки параметров карты расположения
 def map_params(request):
     return render(request, 'create_map/create_map.html')
