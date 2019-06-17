@@ -99,7 +99,8 @@ def map_create(request):
                 objects_price.append(objectss.base_price)  # Заполнение цен на объекты
             weight_load_max = (max_weight - (car.maxWeight + car.trailer_weight))*1000  # Максимально допустимый вес (тонны)
             reloaded = True  # Изначально True для активации цикла. Используется для сообщения о перегрузе
-            obj_ids = []
+            obj_ids = []  # Погружаемые объекты
+            objects_id_original = objects_id  # список всех объектов для заказа
             while (reloaded == True) and (len(objects_id) > 0):
                 # Вызов функции оптимизации из внешнего модуля
                 obj_ids = solve_knapsack(optimise_method, objects_id, objects_weights, weight_load_max, objects_price)
@@ -130,7 +131,11 @@ def map_create(request):
                     if i == j:
                         new__ord_list.append(objects_order[k])
                 k += 1
-            result = [obj_ids for _, obj_ids in sorted(zip(new__ord_list, obj_ids))]  # Сортировка по порядку погрузки
+            if optimise_method == "Value":
+                result_1 = [obj_ids for _, obj_ids in sorted(zip(objects_price, obj_ids))]
+                result = [result_1 for _, result_1 in sorted(zip(new__ord_list, result_1))] 
+            else:
+                result = [obj_ids for _, obj_ids in sorted(zip(new__ord_list, obj_ids))]  # Сортировка по порядку погрузки
             result = result[:places_count]  # Срез до количества мест
             up = []  # Верхние объекты
             down = []  # Нижние объекты
@@ -163,7 +168,7 @@ def map_create(request):
             objects_info_down_right = Objectss.objects.filter(id_Objectss__in=right_down)  # Получить информацию о помещённых предметах (нижний ряд, справа)
             objects_info_up_left = Objectss.objects.filter(id_Objectss__in=left_up)  # Получить информацию о помещённых предметах (верхний ряд, слева)
             objects_info_down_left = Objectss.objects.filter(id_Objectss__in=left_down)  # Получить информацию о помещённых предметах (нижний ряд, слева)
-            new_not_packed_items = list(set(objects_id)-set(result))  # Список не погруженных вещей
+            new_not_packed_items = list(set(objects_id_original)-set(result))  # Список не погруженных вещей
             not_packed_info = Objectss.objects.filter(id_Objectss__in=new_not_packed_items)  # Информаци о не погруженных вещях
         return render(request, 'create_map/Create_map_result.html', {"up_right_objects_ids": right_up,"up_left_objects_ids": left_up,
         "down_right_objects_ids":right_down, "down_left_objects_ids":left_down, 
